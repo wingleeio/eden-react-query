@@ -8,11 +8,11 @@ type UseQueryResultWithoutDataAndError<T> = Omit<UseQueryResult<T>, "data" | "er
 type EdenQueryResult<TResponse> = TResponse extends null
     ? null
     : TResponse extends {
-            data: infer TData;
-            error: infer TError;
-        }
-      ? { data: TData; error: TError } & UseQueryResultWithoutDataAndError<TResponse>
-      : never;
+          data: infer TData;
+          error: infer TError;
+      }
+    ? { data: TData; error: TError } & UseQueryResultWithoutDataAndError<TResponse>
+    : never;
 
 export type UseEdenQuery<TOptions, TResponse> = TOptions extends null
     ? null

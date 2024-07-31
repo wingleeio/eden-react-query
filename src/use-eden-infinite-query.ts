@@ -31,5 +31,5 @@ export type UseEdenInfiniteQuery<TOptions extends { query: any }, TResponse exte
               > & {
                   input: Omit<TOptions["query"], "cursor">;
               }
-    >,
+    >
 ) => UseInfiniteQueryResult<InfiniteData<NonNullable<TResponse["data"]>>, NonNullable<TResponse["error"]>>;

@@ -26,13 +26,13 @@ type EdenQuery<T> = {
                       }
                 : never
             : T[K] extends (body: infer Body) => Promise<infer Response>
-              ? {
-                    useMutation: UseEdenMutation<
-                        Body,
-                        Response extends { data: any; error: any } ? Response : { data: any; error: any }
-                    >;
-                }
-              : never
+            ? {
+                  useMutation: UseEdenMutation<
+                      Body,
+                      Response extends { data: any; error: any } ? Response : { data: any; error: any }
+                  >;
+              }
+            : never
         : EdenQuery<T[K]>;
 };
 
