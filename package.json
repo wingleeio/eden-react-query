@@ -1,6 +1,6 @@
 {
     "name": "eden-query-react",
-    "version": "0.0.2",
+    "version": "0.0.4",
     "description": "",
     "main": "src/index.ts",
     "scripts": {
@@ -10,7 +10,7 @@
     "exports": {
         "./package.json": "./package.json",
         ".": {
-            "import": "./dist/index.js",
+            "import": "./dist/index.mjs",
             "require": "./dist/index.cjs",
             "types": "./dist/index.d.ts"
         }
