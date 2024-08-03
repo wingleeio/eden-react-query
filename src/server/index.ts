@@ -49,7 +49,7 @@ type EdenQueryServerHelper<T> = {
                 : never
             : never
         : EdenQueryServerHelper<T[K]>;
-} & { dehydrate: DehydratedState };
+} & { dehydrate: () => DehydratedState };
 
 export const createServerHelper = <T>(eden: T): EdenQueryServerHelper<T> => {
     const queryClient = new QueryClient();

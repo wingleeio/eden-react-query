@@ -1,5 +1,17 @@
 # eden-query-react
 
+## 0.0.6
+
+### Patch Changes
+
+-   Fix type for dehydrate
+
+## 0.0.5
+
+### Patch Changes
+
+-   Build to add dehydrate type
+
 ## 0.0.4
 
 ### Patch Changes
