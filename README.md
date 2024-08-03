@@ -5,7 +5,7 @@ Wrapper for Eylsia's Eden to use React Query
 ## Installation
 
 ```bash
-npm i elysia-react-query
+npm i eden-react-query
 ```
 
 ## Usage
