@@ -69,7 +69,7 @@ export const createServerHelper = <T>(eden: T): EdenQueryServerHelper<T> => {
 
                 if (prop === "fetch") {
                     return (options: any) => {
-                        const queryKey = ["eden", props.join("."), JSON.stringify(options?.query)];
+                        const queryKey = ["eden", ...props, JSON.stringify(options?.query)];
                         return queryClient.fetchQuery({
                             ...options,
                             queryKey,
@@ -89,7 +89,7 @@ export const createServerHelper = <T>(eden: T): EdenQueryServerHelper<T> => {
 
                 if (prop === "prefetch") {
                     return (options: any) => {
-                        const queryKey = ["eden", props.join("."), JSON.stringify(options?.query)];
+                        const queryKey = ["eden", ...props, JSON.stringify(options?.query)];
                         return queryClient.prefetchQuery({
                             ...options,
                             queryKey,
@@ -109,7 +109,7 @@ export const createServerHelper = <T>(eden: T): EdenQueryServerHelper<T> => {
 
                 if (prop === "fetchInfinite") {
                     return (options: any) => {
-                        const queryKey = ["eden", props.join("."), JSON.stringify(options?.query)];
+                        const queryKey = ["eden", ...props, JSON.stringify(options?.query)];
                         return queryClient.fetchInfiniteQuery({
                             ...options,
                             queryKey,
@@ -129,7 +129,7 @@ export const createServerHelper = <T>(eden: T): EdenQueryServerHelper<T> => {
 
                 if (prop === "prefetchInfinite") {
                     return (options: any) => {
-                        const queryKey = ["eden", props.join("."), JSON.stringify(options?.query)];
+                        const queryKey = ["eden", ...props, JSON.stringify(options?.query)];
                         return queryClient.prefetchInfiniteQuery({
                             ...options,
                             queryKey,

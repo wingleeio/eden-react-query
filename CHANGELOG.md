@@ -1,5 +1,23 @@
 # eden-query-react
 
+## 0.0.9
+
+### Patch Changes
+
+-   Fix query key mismatch
+
+## 0.0.8
+
+### Patch Changes
+
+-   Fix issue with query key mismatch
+
+## 0.0.7
+
+### Patch Changes
+
+-   Build fix for dehydrate
+
 ## 0.0.6
 
 ### Patch Changes

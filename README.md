@@ -2,6 +2,12 @@
 
 Wrapper for Eylsia's Eden to use React Query
 
+## Installation
+
+```bash
+npm i elysia-react-query
+```
+
 ## Usage
 
 ```typescript
@@ -15,19 +21,36 @@ const api = pact(eden);
 ```
 
 ```tsx
+"use client";
+
 import { api } from "@/lib/eden";
 
 export default function Home() {
-  const query = api.index.get.useQuery();
-  const mutation = api.index.post.useMutation({
-    onSuccess: (data) => {
-      console.log(data);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
-  return null;
+    const query = api.index.get.useQuery();
+    const mutation = api.index.post.useMutation({
+        onSuccess: (data) => {
+            console.log(data);
+        },
+        onError: (error) => {
+            console.log(error);
+        },
+    });
+    return null;
+}
+```
+
+```tsx
+import { eden } from "@/lib/eden";
+import { createServerHelper } from "eden-react-query/server";
+
+export default function Home() {
+    const api = createServerHelper(eden);
+    await api.index.get.prefetch({ query: { name: "string" } });
+    return (
+        <HydrationBoundary state={api.dehydrate()}>
+            <SomeClientComponent />
+        </HydrationBoundary>
+    );
 }
 ```
 

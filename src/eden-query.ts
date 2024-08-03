@@ -46,13 +46,7 @@ export const pact = <T extends any>(eden: T): EdenQuery<T> => {
             get: (_, prop) => {
                 if (prop === "useQuery") {
                     return (options: any) => {
-                        const queryKey = [
-                            "eden",
-                            ...props,
-                            JSON.stringify({
-                                query: options.query,
-                            }),
-                        ];
+                        const queryKey = ["eden", ...props, JSON.stringify(options.query)];
                         const query = useQuery({
                             queryKey,
                             queryFn: async () => {
@@ -93,13 +87,7 @@ export const pact = <T extends any>(eden: T): EdenQuery<T> => {
 
                 if (prop === "useInfiniteQuery") {
                     return (options: any) => {
-                        const queryKey = [
-                            "eden",
-                            ...props,
-                            JSON.stringify({
-                                query: options.query,
-                            }),
-                        ];
+                        const queryKey = ["eden", ...props, JSON.stringify(options.query)];
                         const query = useInfiniteQuery({
                             queryKey,
                             queryFn: async ({ pageParam }) => {
