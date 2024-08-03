@@ -1,0 +1,9 @@
+node_modules
+src
+tsup.config.tsup
+.prettierrc
+pnpm-lock.yaml
+tsconfig.json
+.gitattributes
+CHANGELOG.md
+.changeset

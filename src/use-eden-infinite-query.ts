@@ -29,7 +29,7 @@ export type UseEdenInfiniteQuery<TOptions extends { query: any }, TResponse exte
                   >,
                   "queryKey" | "queryFn"
               > & {
-                  input: Omit<TOptions["query"], "cursor">;
+                  query: Omit<TOptions["query"], "cursor">;
               }
     >
 ) => UseInfiniteQueryResult<InfiniteData<NonNullable<TResponse["data"]>>, NonNullable<TResponse["error"]>>;

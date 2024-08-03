@@ -14,7 +14,7 @@ type EdenQuery<T> = {
                       };
                   }
                     ? {
-                          useQuery: UseEdenQuery<Options, Response>;
+                          useQuery: UseEdenQuery<Omit<Options, "header" | "fetch">, Response>;
                           useInfiniteQuery: UseEdenInfiniteQuery<
                               Options,
                               Response extends { data: any; error: any } ? Response : { data: any; error: any },
@@ -22,7 +22,7 @@ type EdenQuery<T> = {
                           >;
                       }
                     : {
-                          useQuery: UseEdenQuery<Options, Response>;
+                          useQuery: UseEdenQuery<Omit<Options, "header" | "fetch">, Response>;
                       }
                 : never
             : T[K] extends (body: infer Body) => Promise<infer Response>
@@ -47,7 +47,7 @@ export const pact = <T extends any>(eden: T): EdenQuery<T> => {
                 if (prop === "useQuery") {
                     return (options: any) => {
                         const queryKey = [
-                            "nova",
+                            "eden",
                             ...props,
                             JSON.stringify({
                                 query: options.query,
@@ -58,9 +58,7 @@ export const pact = <T extends any>(eden: T): EdenQuery<T> => {
                             queryFn: async () => {
                                 const method: any = props.reduce((acc, key) => (acc as any)[key], eden);
                                 const { data, error } = await method({
-                                    headers: options.headers,
                                     query: options.query,
-                                    fetch: options.fetch,
                                 });
                                 if (error) {
                                     return Promise.reject(error);
@@ -96,10 +94,10 @@ export const pact = <T extends any>(eden: T): EdenQuery<T> => {
                 if (prop === "useInfiniteQuery") {
                     return (options: any) => {
                         const queryKey = [
-                            "nova",
+                            "eden",
                             ...props,
                             JSON.stringify({
-                                input: options.input,
+                                query: options.query,
                             }),
                         ];
                         const query = useInfiniteQuery({
@@ -107,9 +105,7 @@ export const pact = <T extends any>(eden: T): EdenQuery<T> => {
                             queryFn: async ({ pageParam }) => {
                                 const method: any = props.reduce((acc, key) => (acc as any)[key], eden);
                                 const { data, error } = await method({
-                                    headers: options.headers,
-                                    query: Object.assign({}, options.input, { cursor: pageParam }),
-                                    fetch: options.fetch,
+                                    query: Object.assign({}, options.query, { cursor: pageParam }),
                                 });
                                 if (error) {
                                     return Promise.reject(error);
