@@ -1,4 +1,12 @@
-import { FetchInfiniteQueryOptions, FetchQueryOptions, QueryClient } from "@tanstack/react-query";
+import {
+    DehydratedState,
+    FetchInfiniteQueryOptions,
+    FetchQueryOptions,
+    QueryClient,
+    dehydrate,
+} from "@tanstack/react-query";
+
+import { MergeObjects } from "../utils";
 
 type FetchWithQuery<TQuery, TData = unknown, TError = unknown> = (
     options: Omit<FetchQueryOptions<TData, TError>, "queryKey"> & { query: TQuery }
@@ -41,7 +49,7 @@ type EdenQueryServerHelper<T> = {
                 : never
             : never
         : EdenQueryServerHelper<T[K]>;
-};
+} & { dehydrate: DehydratedState };
 
 export const createServerHelper = <T>(eden: T): EdenQueryServerHelper<T> => {
     const queryClient = new QueryClient();
@@ -53,6 +61,12 @@ export const createServerHelper = <T>(eden: T): EdenQueryServerHelper<T> => {
 
         return new Proxy(fn, {
             get: (_, prop) => {
+                if (prop === "dehydrate") {
+                    return () => {
+                        return dehydrate(queryClient);
+                    };
+                }
+
                 if (prop === "fetch") {
                     return (options: any) => {
                         const queryKey = ["eden", props.join("."), JSON.stringify(options?.query)];
