@@ -1,5 +1,11 @@
 # eden-query-react
 
+## 0.0.14
+
+### Patch Changes
+
+-   Update readme
+
 ## 0.0.13
 
 ### Patch Changes

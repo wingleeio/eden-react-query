@@ -13,42 +13,46 @@ npm i eden-react-query
 ```typescript
 import type { App } from "./path-to-your-elysia";
 import { treaty } from "@elysiajs/eden";
-import { pact } from "eden-react-query";
+import { createClient } from "eden-react-query";
 
 const eden = treaty<App>("http://localhost:3000");
 
-const api = pact(eden);
+const hooks = createClient(eden);
 ```
 
 ```tsx
 "use client";
 
-import { api } from "@/lib/eden";
+import { hooks } from "@/utils/eden";
 
-export default function Home() {
-    const query = api.index.get.useQuery();
-    const mutation = api.index.post.useMutation({
-        onSuccess: (data) => {
-            console.log(data);
-        },
-        onError: (error) => {
-            console.log(error);
+export default function HomeClient() {
+    const countQuery = hooks.count.get.useQuery();
+    const countMutation = hooks.count.post.useMutation({
+        onSuccess: () => {
+            countQuery.refetch();
         },
     });
-    return null;
+    return (
+        <main>
+            <button onClick={() => countMutation.mutate()}>Click me</button>{" "}
+            {countQuery.data ? countQuery.data.count : "Loading..."}
+        </main>
+    );
 }
 ```
 
 ```tsx
-import { eden } from "@/lib/eden";
-import { createServerHelper } from "eden-react-query/server";
+import HomeClient from "./page.client";
+import { HydrationBoundary } from "@tanstack/react-query";
+import { createUtils } from "eden-react-query/server";
+import { eden } from "@/utils/eden";
 
-export default function Home() {
-    const api = createServerHelper(eden);
-    await api.index.get.prefetch({ query: { name: "string" } });
+export default async function Home() {
+    const utils = createUtils(eden);
+    await utils.count.get.prefetch();
     return (
-        <HydrationBoundary state={api.dehydrate()}>
-            <SomeClientComponent />
+        <HydrationBoundary state={utils.dehydrate()}>
+            <HomeClient />
         </HydrationBoundary>
     );
 }
