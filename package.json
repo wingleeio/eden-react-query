@@ -1,6 +1,6 @@
 {
     "name": "eden-react-query",
-    "version": "0.0.9",
+    "version": "0.0.13",
     "description": "",
     "main": "./dist/index.mjs",
     "module": "./dist/index.mjs",

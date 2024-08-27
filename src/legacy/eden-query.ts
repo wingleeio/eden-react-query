@@ -36,6 +36,9 @@ type EdenQuery<T> = {
         : EdenQuery<T[K]>;
 };
 
+/**
+ * @deprecated This method is replaced with `createQueryClient`
+ */
 export const pact = <T extends any>(eden: T): EdenQuery<T> => {
     const build = (props: string[]) => {
         const fn = function () {

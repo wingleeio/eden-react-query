@@ -6,7 +6,7 @@ import {
     dehydrate,
 } from "@tanstack/react-query";
 
-import { MergeObjects } from "../utils";
+import { createUtils } from "./../create-utils";
 
 type FetchWithQuery<TQuery, TData = unknown, TError = unknown> = (
     options: Omit<FetchQueryOptions<TData, TError>, "queryKey"> & { query: TQuery }
@@ -42,15 +42,22 @@ type EdenQueryServerHelper<T> = {
                                   prefetchInfinite: FetchInfinite<Query, Cursor, Response["data"], Response["error"]>;
                               }
                             : {
+                                  fetch: Fetch<Query, Response["data"], Response["error"]>;
                                   prefetch: Fetch<Query, Response["data"], Response["error"]>;
                               }
-                        : never
+                        : {
+                              fetch: Fetch<void, Response["data"], Response["error"]>;
+                              prefetch: Fetch<void, Response["data"], Response["error"]>;
+                          }
                     : never
                 : never
             : never
         : EdenQueryServerHelper<T[K]>;
 } & { dehydrate: () => DehydratedState };
 
+/**
+ * @deprecated This method is replaced with `createUtils`
+ */
 export const createServerHelper = <T>(eden: T): EdenQueryServerHelper<T> => {
     const queryClient = new QueryClient();
 
@@ -154,3 +161,5 @@ export const createServerHelper = <T>(eden: T): EdenQueryServerHelper<T> => {
 
     return build([]) as unknown as EdenQueryServerHelper<T>;
 };
+
+export { createUtils };

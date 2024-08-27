@@ -1,5 +1,29 @@
 # eden-query-react
 
+## 0.0.13
+
+### Patch Changes
+
+-   Add param support and fix broken types
+
+## 0.0.12
+
+### Patch Changes
+
+-   Fix types
+
+## 0.0.11
+
+### Patch Changes
+
+-   Set query type to unknown if no query type
+
+## 0.0.10
+
+### Patch Changes
+
+-   Fix types for server helpers
+
 ## 0.0.9
 
 ### Patch Changes
