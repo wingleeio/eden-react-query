@@ -1,5 +1,11 @@
 # eden-query-react
 
+## 0.0.15
+
+### Patch Changes
+
+-   Update tanstack type
+
 ## 0.0.14
 
 ### Patch Changes

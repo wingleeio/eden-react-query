@@ -1,6 +1,6 @@
 {
     "name": "eden-react-query",
-    "version": "0.0.14",
+    "version": "0.0.15",
     "description": "",
     "main": "./dist/index.mjs",
     "module": "./dist/index.mjs",
@@ -27,7 +27,7 @@
     "license": "ISC",
     "devDependencies": {
         "@changesets/cli": "^2.27.7",
-        "@tanstack/react-query": "^5.52.1",
+        "@tanstack/react-query": "^5.52.2",
         "tsup": "^8.2.3",
         "typescript": "^5.5.4"
     }

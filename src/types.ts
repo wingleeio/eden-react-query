@@ -1,13 +1,15 @@
 import {
-    UseQueryOptions,
-    UseQueryResult,
+    DehydratedState,
+    FetchInfiniteQueryOptions,
+    FetchQueryOptions,
+    InfiniteData,
     UseInfiniteQueryOptions,
     UseInfiniteQueryResult,
-    InfiniteData,
+    UseMutationOptions,
+    UseMutationResult,
+    UseQueryOptions,
+    UseQueryResult,
     useMutation,
-    FetchQueryOptions,
-    FetchInfiniteQueryOptions,
-    DehydratedState,
 } from "@tanstack/react-query";
 
 export type EdenFunction<TParameters extends any[], TResults> = (...args: TParameters) => TResults;
@@ -59,11 +61,13 @@ export type UseEdenInfiniteQuery<
       ) => UseEdenInfiniteQueryResult<TData, TError, TCursor>
     : never;
 
-export type UseEdenMutation<TParameters extends any[] = any[], TData = any, TError = any> = typeof useMutation<
-    NonNullable<TData>,
-    NonNullable<TError>,
-    TParameters[0] extends EdenBody ? TParameters[0] : void
->;
+export type UseEdenMutation<
+    TParameters extends any[] = any[],
+    TData = any,
+    TError = any
+> = TParameters[0] extends EdenBody
+    ? (options: UseMutationOptions<TData, TError, TParameters[0]>) => UseMutationResult<TData, TError, TParameters[0]>
+    : (options: UseMutationOptions<TData, TError, void>) => UseMutationResult<TData, TError, void>;
 
 export type EdenOptions<TQuery = any> =
     | {
@@ -106,7 +110,11 @@ export type EdenQuery<
       };
 
 export type EdenMutation<TParameters extends any[], TResponse = EdenResponse<unknown, unknown>> = {
-    useMutation: UseEdenMutation<TParameters, ExtractEdenResponseData<TResponse>, ExtractEdenResponseError<TResponse>>;
+    useMutation: UseEdenMutation<
+        TParameters,
+        NonNullable<ExtractEdenResponseData<TResponse>>,
+        NonNullable<ExtractEdenResponseError<TResponse>>
+    >;
 };
 
 export type EdenQueryClient<T> = {
