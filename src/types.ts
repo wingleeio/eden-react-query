@@ -65,9 +65,21 @@ export type UseEdenMutation<
     TParameters extends any[] = any[],
     TData = any,
     TError = any
-> = TParameters[0] extends EdenBody
-    ? (options: UseMutationOptions<TData, TError, TParameters[0]>) => UseMutationResult<TData, TError, TParameters[0]>
-    : (options: UseMutationOptions<TData, TError, void>) => UseMutationResult<TData, TError, void>;
+> = TParameters[1] extends EdenOptions<infer TQuery>
+    ? TParameters[0] extends EdenBody
+        ? (
+              options: UseMutationOptions<TData, TError, TParameters[0]> & { query: TQuery }
+          ) => UseMutationResult<TData, TError, TParameters[0]>
+        : (
+              options: UseMutationOptions<TData, TError, void> & { query: TQuery }
+          ) => UseMutationResult<TData, TError, void>
+    : TParameters[0] extends EdenBody
+    ? (
+          options?: UseMutationOptions<TData, TError, TParameters[0]> & { query?: Record<string, any> }
+      ) => UseMutationResult<TData, TError, TParameters[0]>
+    : (
+          options?: UseMutationOptions<TData, TError, void> & { query?: Record<string, any> }
+      ) => UseMutationResult<TData, TError, void>;
 
 export type EdenOptions<TQuery = any> =
     | {

@@ -82,8 +82,8 @@ export const createClient = <T>(client: T): EdenQueryClient<T> => {
                         }, client);
                         return useMutation({
                             ...options,
-                            mutationFn: async () => {
-                                const { data, error } = await method({ query: options?.query });
+                            mutationFn: async (body: any) => {
+                                const { data, error } = await method(body);
                                 if (error) {
                                     throw error;
                                 }

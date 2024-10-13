@@ -1,5 +1,35 @@
 # eden-query-react
 
+## 0.0.20
+
+### Patch Changes
+
+-   fix query not being optional
+
+## 0.0.19
+
+### Patch Changes
+
+-   Fix mutation types
+
+## 0.0.18
+
+### Patch Changes
+
+-   build
+
+## 0.0.17
+
+### Patch Changes
+
+-   Fix mutation types
+
+## 0.0.16
+
+### Patch Changes
+
+-   Fix mutation bug
+
 ## 0.0.15
 
 ### Patch Changes
