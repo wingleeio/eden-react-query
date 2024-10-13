@@ -5,6 +5,7 @@
     "main": "./dist/index.mjs",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
+    "repository": "https://github.com/wingleeio/eden-react-query",
     "scripts": {
         "dev": "tsup --format cjs,esm --dts --watch",
         "build": "tsup --format cjs,esm --dts"
